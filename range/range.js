@@ -39,9 +39,6 @@ async function queryByDate(dataType, startDate, endDate, client) {
 	return objectArr;
 }
 
-function cleanUp(req, res) {
-	objectArr = {};
-}
 // Cache middleware
 async function cache(req, res, next) {
 	const client = req.redis_config.client;
@@ -58,12 +55,12 @@ async function cache(req, res, next) {
 
 	if (dataObject) {
 		res.status(200).json(dataObject);
-		next();
+
 	} else {
 		res.status(400).json({ msg: `No data available for this range` });
 	}
 }
 
-router.get('/:dataType/:startDate/:endDate', cache, cleanUp);
+router.get('/:dataType/:startDate/:endDate', cache);
 
 module.exports = router;
