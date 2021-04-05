@@ -12,8 +12,6 @@ function convertToJson(dataString, delimiter) {
 	var dataObject = {};
 
 	for (const [i, d] of dArray.entries()) {
-		// the last element of dArray is ','
-		// by using i % 2 !== 0, we skip the last element
 		if (i % 2 !== 0) {
 			dataObject[dArray[i - 1]] = d;
 		}
@@ -55,7 +53,6 @@ async function cache(req, res, next) {
 
 	if (dataObject) {
 		res.status(200).json(dataObject);
-
 	} else {
 		res.status(400).json({ msg: `No data available for this range` });
 	}
