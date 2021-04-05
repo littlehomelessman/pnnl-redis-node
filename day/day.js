@@ -3,11 +3,11 @@ let router = express.Router();
 
 function convertToJson(dataString, delimiter) {
 	dArray = dataString.split(delimiter);
+
+	console.log(dArray);
 	var dataObject = {};
 
 	for (const [i, d] of dArray.entries()) {
-		// the last element of dArray is ','
-		// by using i % 2 !== 0, we skip the last element
 		if (i % 2 !== 0) {
 			dataObject[dArray[i - 1]] = d;
 		}
@@ -34,7 +34,8 @@ function cache(req, res) {
 			dataObject = convertToJson(data, ',');
 			res.status(200).json(dataObject);
 		} else {
-			res.status(400)
+			res
+				.status(400)
 				.json({ msg: `No data found for ${dateTime} in ${dataType}` });
 		}
 	});
